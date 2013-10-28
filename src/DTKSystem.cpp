@@ -92,3 +92,45 @@ BOOL CSystem::EnablePrivilege( LPCTSTR PrivilegeName )
     CloseHandle( tokenhandle );
     return TRUE;
 }
+
+HINSTANCE CSystem::OpenURL( const LPCTSTR szURL, BOOL bPriorityIE )
+{
+    HINSTANCE hIn = NULL;
+    if ( bPriorityIE )
+    {
+        hIn = ShellExecute( NULL, _T( "open" ), _T( "explorer.exe" ), szURL, NULL, SW_SHOWNORMAL );
+    }
+    else
+        hIn = ShellExecute( NULL, _T( "open" ), szURL, NULL, NULL, SW_SHOWNORMAL );
+    return hIn;
+}
+
+BOOL CSystem::IsIA64()
+{
+    typedef void ( WINAPI * LPFN_PGNSI )( LPSYSTEM_INFO );
+    typedef BOOL ( WINAPI * LPFN_ISWOW64PROCESS )( HANDLE, PBOOL );
+    LPFN_PGNSI pGNSI = ( LPFN_PGNSI ) GetProcAddress( GetModuleHandle( TEXT( "kernel32.dll" ) ), "GetNativeSystemInfo" );
+    LPFN_ISWOW64PROCESS fnIsWow64Process = ( LPFN_ISWOW64PROCESS ) GetProcAddress( GetModuleHandle( TEXT( "kernel32" ) ), "IsWow64Process" );
+    
+    BOOL bIsWow64 = FALSE;
+    fnIsWow64Process( GetCurrentProcess(), &bIsWow64 );
+    
+    return bIsWow64;
+}
+
+HINSTANCE CSystem::OpenFileInExplorer( __in const LPCTSTR lpszFile )
+{
+    TCHAR sCmd[MAX_PATH] = {0};
+    _stprintf_s( sCmd, _T( "%s, %s" ), _T( "/select" ), lpszFile );
+    return ShellExecute( NULL, _T( "open" ), _T( "explorer" ), sCmd, NULL, SW_SHOW );
+}
+
+LPCTSTR CSystem::GetModulePathByHwnd( const HWND hWnd, LPTSTR lpszBuf, DWORD dwBufSize )
+{
+    DWORD dwPid = 0x0;
+    GetWindowThreadProcessId( hWnd, &dwPid );
+    HANDLE handle = OpenProcess( PROCESS_ALL_ACCESS, FALSE, dwPid );
+    GetModuleFileName( ( HMODULE )handle, lpszBuf, dwBufSize );
+    CloseHandle( handle );
+    return lpszBuf;
+}

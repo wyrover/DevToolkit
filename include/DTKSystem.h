@@ -49,5 +49,35 @@ namespace DevToolkit
         * \return 成功提升为DEBUG权限返回TRUE,否则返回FALSE
         */
         static BOOL EnablePrivilege( LPCTSTR PrivilegeName );
+        
+        /**
+        * \brief 打开一个URL
+        * \param szURL URL地址
+        * \param bPriorityIE 是否优先使用IE打开
+        * \return HINSTANCE
+        */
+        static HINSTANCE OpenURL( const LPCTSTR szURL, BOOL bPriorityIE );
+        
+        /**
+        * \brief 当前系统是否是64位架构
+        * \return 是64位架构返回TRUE,否则返回FALSE
+        */
+        static BOOL IsIA64();
+        
+        /**
+        * \brief 在Explorer中定位并选择文件
+        * \param lpszFile 要定位的文件路径
+        * \return HINSTANCE
+        */
+        static HINSTANCE OpenFileInExplorer( const LPCTSTR lpszFile );
+        
+        /**
+        * \brief 根据窗口句柄获取模块路径
+        * \param hWnd 要获取路径的窗口句柄
+        * \param lpszBuf 路径缓冲区
+        * \param dwBufSize 缓冲区大小
+        * \return 模块路径
+        */
+        static LPCTSTR GetModulePathByHwnd( const HWND hWnd, LPTSTR lpszBuf, DWORD dwBufSize );
     };
 }
