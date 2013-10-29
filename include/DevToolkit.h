@@ -1,10 +1,16 @@
 #pragma once
 
+#ifdef _USRDLL
 #ifndef DEVTOOLKIT_EXPORTS
 #define EXPORTS_FUNC extern "C" __declspec(dllimport)
 #else
 #define EXPORTS_FUNC extern "C" __declspec(dllexport)
 #endif
+#else
+#define EXPORTS_FUNC 
+#endif
+
+//#define EXPORTS_FUNC
 
 ///////////////////////////////////系统相关函数///////////////////////////////////////
 EXPORTS_FUNC BOOL IsAdmin();
@@ -28,3 +34,8 @@ EXPORTS_FUNC HINSTANCE OpenFileInExplorer( const LPCTSTR lpszFile );
 EXPORTS_FUNC LPCTSTR GetModulePathByHwnd( const HWND hWnd,LPTSTR lpszBuf,DWORD dwBufSize );
 
 ///////////////////////////////////内存相关函数///////////////////////////////////////
+
+///////////////////////////////////进程相关函数///////////////////////////////////////
+EXPORTS_FUNC BOOL RemoteInjectDll( DWORD dwPID, LPCTSTR lpszDllName );
+
+EXPORTS_FUNC BOOL RemoteUnInjectDll( DWORD dwPID, LPCTSTR lpszDllName );

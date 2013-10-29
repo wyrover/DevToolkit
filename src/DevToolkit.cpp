@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DevToolkit.h"
 #include "DTKSystem.h"
+#include "DTKProcess.h"
 using namespace DevToolkit;
 
 BOOL IsAdmin()
@@ -51,4 +52,14 @@ HINSTANCE OpenFileInExplorer( const LPCTSTR lpszFile )
 LPCTSTR GetModulePathByHwnd( const HWND hWnd, LPTSTR lpszBuf, DWORD dwBufSize )
 {
     return CSystem::GetModulePathByHwnd( hWnd, lpszBuf, dwBufSize );
+}
+
+BOOL RemoteInjectDll( DWORD dwPID, LPCTSTR lpszDllName )
+{
+	return CProcess::RemoteInjectDll(dwPID,lpszDllName);
+}
+
+BOOL RemoteUnInjectDll( DWORD dwPID, LPCTSTR lpszDllName )
+{
+	return CProcess::RemoteUnInjectDll(dwPID,lpszDllName);
 }

@@ -66,7 +66,7 @@ BOOL CProcess::RemoteInjectDll( DWORD dwPID, LPCTSTR lpszDllName )
             return FALSE;
         }
         
-        hRemoteThread = ::CreateRemoteThread( hPro, NULL, 0, pfnThreadRtn, pszLibFileRemote, 0, NULL );
+        hRemoteThread = ::CreateRemoteThread( hPro, NULL, NULL, pfnThreadRtn, pszLibFileRemote, 0, NULL );
         if ( hRemoteThread == NULL )
         {
             return FALSE;
