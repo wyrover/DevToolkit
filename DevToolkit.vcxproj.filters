@@ -39,6 +39,21 @@
     <ClInclude Include="include\DevToolkit.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\DTKMiniDump.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DTKMapFile.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DTKIniReader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DTKRegHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DTKWebBrowser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,10 +77,20 @@
     <ClCompile Include="src\DevToolkit.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DevToolkit.def">
+    <ClCompile Include="src\DTKIniReader.cpp">
       <Filter>源文件</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="src\DTKMapFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DTKMiniDump.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DTKRegHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DTKWebBrowser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
