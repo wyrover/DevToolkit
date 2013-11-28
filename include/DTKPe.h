@@ -11,6 +11,9 @@ namespace DevToolkit
     public:
         CPe();
         virtual ~CPe();
+
+	public:
+		static BOOL IATHook(IN HMODULE hModule,IN LPCTSTR pImageName,IN LPCVOID pTargetFuncAddr,IN LPCVOID pReplaceFuncAddr);
     protected:
     private:
     };
