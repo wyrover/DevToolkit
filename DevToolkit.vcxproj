@@ -54,13 +54,16 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DEVTOOLKIT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\lib.X86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mhookLib_d.lib;%(AdditionalDependencies);WinInet.lib;Sensapi.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +75,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DEVTOOLKIT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -81,21 +85,25 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\lib.X86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mhookLib.lib;%(AdditionalDependencies);WinInet.lib;Sensapi.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\DevToolkit.h" />
-    <ClInclude Include="include\DTKPe.h" />
-    <ClInclude Include="include\DTKProcess.h" />
+    <ClInclude Include="include\DTKDefine.h" />
+    <ClInclude Include="include\DTKKernel.h" />
     <ClInclude Include="include\DTKSystem.h" />
     <ClInclude Include="include\DTKIniReader.h" />
-    <ClInclude Include="include\DTKMapFile.h" />
     <ClInclude Include="include\DTKMiniDump.h" />
     <ClInclude Include="include\DTKRegHelper.h" />
     <ClInclude Include="include\DTKWebBrowser.h" />
+    <ClInclude Include="include\FlashControl.h" />
+    <ClInclude Include="include\ProcessHelper.h" />
+    <ClInclude Include="include\ProcessManager.h" />
+    <ClInclude Include="include\ProcessMgrImpl.h" />
     <ClInclude Include="include\SharedMemory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -109,15 +117,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\DevToolkit.cpp" />
-    <ClCompile Include="src\DTKPe.cpp" />
-    <ClCompile Include="src\DTKProcess.cpp" />
+    <ClCompile Include="src\DTKKernel.cpp" />
     <ClCompile Include="src\DTKSystem.cpp" />
     <ClCompile Include="src\DTKIniReader.cpp" />
-    <ClCompile Include="src\DTKMapFile.cpp" />
     <ClCompile Include="src\DTKMiniDump.cpp" />
     <ClCompile Include="src\DTKRegHelper.cpp" />
     <ClCompile Include="src\DTKWebBrowser.cpp" />
+    <ClCompile Include="src\FlashControl.cpp" />
+    <ClCompile Include="src\ProcessHelper.cpp" />
+    <ClCompile Include="src\ProcessManager.cpp" />
+    <ClCompile Include="src\ProcessMgrImpl.cpp" />
     <ClCompile Include="src\SharedMemory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

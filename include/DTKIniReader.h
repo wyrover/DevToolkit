@@ -3,7 +3,7 @@
 
 namespace DevToolkit
 {
-	class CIniReader
+	class EXPORTS_CLASS CIniReader
 	{
 	public:
 		CIniReader( LPCTSTR lpszIniPath );
@@ -12,7 +12,7 @@ namespace DevToolkit
 		LPCTSTR GetIniFilePath() const;
 
 		DWORD ReadDword( LPCTSTR Section, LPCTSTR key ) const;
-		double ReadDouble( LPCTSTR Section, LPCTSTR key );
+		DOUBLE ReadDouble( LPCTSTR Section, LPCTSTR key );
 		DWORD ReadString( LPCTSTR Section, LPCTSTR key, TCHAR* Buf ) const;
 
 		BOOL WriteDword( LPCTSTR Section, LPCTSTR key, DWORD Value );

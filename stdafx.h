@@ -11,18 +11,8 @@
 // Windows 头文件:
 #include <windows.h>
 #include <tchar.h>
-#include "DevToolkit.h"
-
-#define _WTL_NO_CSTRING  
-#define _WTL_NO_WTYPES  
-#include <atlstr.h>  
-#include <atltypes.h>  
-
-#include <atlbase.h>  
-#include <atlapp.h>  
-
-extern CAppModule _Module;  
-
-#include <atlwin.h> 
+#include "DTKDefine.h"
 
 // TODO: 在此处引用程序需要的其他头文件
+
+

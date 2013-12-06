@@ -1,5 +1,6 @@
 #pragma once
 // 共享内存（内存文件映射）类
+
 namespace DevToolkit
 {
     typedef struct SharedMemoryCreateOptions
@@ -10,8 +11,8 @@ namespace DevToolkit
         BOOL bOpenExisting;
         BOOL bExcutable;
     } SHAREDMEMORYCREATEOPTIONS, *PSHAREDMEMORYCREATEOPTIONS;
-
-    class CSharedMemory
+    
+    class EXPORTS_CLASS CSharedMemory
     {
     public:
         explicit CSharedMemory( void );
@@ -33,7 +34,7 @@ namespace DevToolkit
         BOOL m_bReadOnly;
         HANDLE m_hShareMemLock;
         LPVOID m_lpMemory;
-        CString m_sName;
+        TCHAR m_sName[MAX_PATH];
         static const int MAP_MINIMUM_ALIGNMENT = 32;
     };
 }

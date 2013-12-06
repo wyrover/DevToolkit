@@ -38,7 +38,7 @@ DWORD CIniReader::ReadDword( LPCTSTR Section, LPCTSTR key ) const
     return GetPrivateProfileInt( Section, key, 0, m_IniPath );
 }
 
-double CIniReader::ReadDouble( LPCTSTR Section, LPCTSTR key )
+DOUBLE CIniReader::ReadDouble( LPCTSTR Section, LPCTSTR key )
 {
     ReadString( Section, key, m_result );
     return _tstof( m_result );

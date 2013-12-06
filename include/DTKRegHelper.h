@@ -3,7 +3,7 @@
 
 namespace DevToolkit
 {
-    class CRegHelper
+    class EXPORTS_CLASS CRegHelper
     {
     public:
         CRegHelper( void );

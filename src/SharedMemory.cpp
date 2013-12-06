@@ -18,6 +18,7 @@ size_t GetMemorySectionSize( void* address )
 CSharedMemory::CSharedMemory( void )
     : m_bReadOnly( FALSE ), m_dwMapedSize( 0 ), m_hFileMap( NULL ), m_hShareMemLock( NULL ), m_lpMemory( NULL )
 {
+    memset( m_sName, 0, MAX_PATH );
 }
 
 
@@ -43,12 +44,11 @@ BOOL CSharedMemory::Create( const SHAREDMEMORYCREATEOPTIONS& options )
     if ( options.dwSize > static_cast<size_t>( INT_MAX - kSectionMask ) )
         return false;
         
-    m_sName = options.sName;
+    _tcscpy_s( m_sName, MAX_PATH, options.sName );
     size_t rounded_size = ( options.dwSize + kSectionMask ) & ~kSectionMask;
     m_hFileMap = CreateFileMapping( INVALID_HANDLE_VALUE, NULL,
                                     PAGE_READWRITE, 0, static_cast<DWORD>( rounded_size ),
-                                    m_sName.IsEmpty() ? NULL : m_sName.GetBuffer() );
-    m_sName.ReleaseBuffer();
+                                    m_sName );
     if ( NULL == m_hFileMap )
         return FALSE;
         
@@ -67,11 +67,10 @@ BOOL CSharedMemory::Open( LPCTSTR lpszName, BOOL bReadOnly )
 {
     assert( !m_lpMemory );
     
-    m_sName = lpszName;
+    _tcscpy_s( m_sName, MAX_PATH, lpszName );
     m_bReadOnly = bReadOnly;
     m_hFileMap = OpenFileMapping( m_bReadOnly ? FILE_MAP_READ : FILE_MAP_READ | FILE_MAP_WRITE,
-                                  FALSE, m_sName.IsEmpty() ? NULL : m_sName.GetBuffer() );
-    m_sName.ReleaseBuffer();
+                                  FALSE, m_sName );
     if ( m_hFileMap != NULL )
     {
         return TRUE;
@@ -103,7 +102,7 @@ BOOL CSharedMemory::Lock( DWORD dwTimeout, LPSECURITY_ATTRIBUTES lpAttributes )
 {
     if ( m_hShareMemLock == NULL )
     {
-        m_sName.Append( _T( "Lock" ) );
+        _tcscat_s( m_sName, MAX_PATH, _T( "Lock" ) );
         m_hShareMemLock = CreateMutex( lpAttributes, FALSE, m_sName );
         if ( m_hShareMemLock == NULL )
         {

@@ -24,22 +24,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\DTKPe.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DTKProcess.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\DTKSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\DevToolkit.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\DTKMiniDump.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DTKMapFile.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\DTKIniReader.h">
@@ -54,6 +42,24 @@
     <ClInclude Include="include\SharedMemory.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\DTKKernel.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DTKDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FlashControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ProcessManager.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ProcessMgrImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ProcessHelper.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,22 +68,10 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\DTKPe.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DTKProcess.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\DTKSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\DevToolkit.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\DTKIniReader.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DTKMapFile.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\DTKMiniDump.cpp">
@@ -90,6 +84,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\SharedMemory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DTKKernel.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FlashControl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessMgrImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessHelper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
