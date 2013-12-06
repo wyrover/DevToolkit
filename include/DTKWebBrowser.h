@@ -1,11 +1,11 @@
 #pragma once
-#include <atlbase.h>
+//#include <atlbase.h>
 #include <exdispid.h>
 #include <atlcom.h>
 #include <exdisp.h>
-#include <atlwin.h>
-#include <atltypes.h>
-#include <..\..\..\3PartLib\wtl\trunk\wtl\include\atlapp.h>
+// #include <atlwin.h>
+// #include <atltypes.h>
+// #include <atlapp.h>
 
 enum WEBBROWSER_TYPE
 {

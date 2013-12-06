@@ -30,9 +30,6 @@
     <ClInclude Include="include\DTKProcess.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\DTKString.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\DTKSystem.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -54,6 +51,9 @@
     <ClInclude Include="include\DTKWebBrowser.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\SharedMemory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -66,9 +66,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\DTKProcess.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DTKString.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\DTKSystem.cpp">
@@ -90,6 +87,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\DTKWebBrowser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharedMemory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
