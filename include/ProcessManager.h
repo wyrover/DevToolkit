@@ -4,7 +4,8 @@
 #include <mmdeviceapi.h>
 #include <stdio.h>
 
-
+namespace DevToolkit
+{
 class EXPORTS_CLASS CProcessManager
 {
 public:
@@ -24,4 +25,5 @@ public:
 
 	static CProcessManager* GetInstance();
 };
+}
 

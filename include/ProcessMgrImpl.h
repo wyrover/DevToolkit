@@ -1,7 +1,10 @@
 #pragma once
 #include <mmdeviceapi.h>
 #include "processmanager.h"
-class CProcessMgrImpl : public CProcessManager
+
+namespace DevToolkit
+{
+class EXPORTS_CLASS CProcessMgrImpl : public CProcessManager
 {
 public:
 
@@ -60,4 +63,5 @@ private:
 
 	static BOOL m_bIsHooked;
 };
+}
 
