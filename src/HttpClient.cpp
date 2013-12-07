@@ -92,7 +92,6 @@ namespace DevToolkit
         if ( !bRet )
         {
             bRet = FALSE;
-            goto HTTPERROR;
         }
         
         m_wPort = url_Components.nPort;
@@ -103,7 +102,6 @@ namespace DevToolkit
         if ( NULL == hConnect )
         {
             bRet = FALSE;
-            goto HTTPERROR;
         }
         
         // 打开Request
@@ -112,7 +110,6 @@ namespace DevToolkit
         if ( NULL == hRequest )
         {
             bRet = FALSE;
-            goto HTTPERROR;
         }
         
         // 发送Request
@@ -121,7 +118,6 @@ namespace DevToolkit
         if ( !bRet )
         {
             bRet = FALSE;
-            goto HTTPERROR;
         }
         
         // 接收回应
@@ -130,7 +126,6 @@ namespace DevToolkit
         if ( !bRet )
         {
             bRet = FALSE;
-            goto HTTPERROR;
         }
         
         // 查询HttpHeader
@@ -147,7 +142,6 @@ namespace DevToolkit
                 if ( !bRet )
                 {
                     bRet = FALSE;
-                    goto HTTPERROR;
                 }
             }
         }
@@ -180,7 +174,6 @@ namespace DevToolkit
         }
         
         // 关闭会话
-    HTTPERROR:
     
         if ( NULL != hRequest )
         {

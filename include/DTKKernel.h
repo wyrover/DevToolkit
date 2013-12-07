@@ -1,7 +1,19 @@
 #pragma once
+#include "DTKDefine.h"
 
 namespace DevToolkit
 {
+    typedef struct _PROCESS_BASIC_INFORMATION
+    {
+        DWORD ExitStatus;
+        DWORD PebBaseAddress;
+        DWORD AffinityMask;
+        DWORD BasePriority;
+        ULONG UniqueProcessId;
+        ULONG InheritedFromUniqueProcessId;
+    } PROCESS_BASIC_INFORMATION, *LPPROCESS_BASIC_INFORMATION;
+    
+    typedef LONG( WINAPI *NTQUERYINFORMATIONPROCESS )( IN HANDLE ProcessHandle, IN UINT InformationClass, OUT PVOID ProcessInformation, IN ULONG ProcessInformationLength, OUT PULONG ReturnLength OPTIONAL );
     /**
     * \brief HOOK IAT
     * \param hModule EXE程序基址
@@ -55,7 +67,7 @@ namespace DevToolkit
     * \param address
     * \return 返回address这个地址所在的DLL的句柄
     */
-    HMODULE GetModuleFromAddress( LPCVOID address );
+    EXPORTS_FUNC HMODULE GetModuleFromAddress( LPCVOID address );
     
     /**
     * \brief RVA转换为指针
@@ -63,7 +75,7 @@ namespace DevToolkit
     * \param dwRva
     * \return
     */
-    PBYTE RvaToPointer( PBYTE pbImage, DWORD dwRva );
+    EXPORTS_FUNC PBYTE RvaToPointer( PBYTE pbImage, DWORD dwRva );
     
     /**
     * \brief 文件偏移转换为RVA
@@ -71,14 +83,22 @@ namespace DevToolkit
     * \param dwOffset
     * \return
     */
-    DWORD OffsetToRva( PBYTE pbImage, DWORD dwOffset );
-
-	/**
+    EXPORTS_FUNC DWORD OffsetToRva( PBYTE pbImage, DWORD dwOffset );
+    
+    /**
     * \brief 模拟实现GetProcAddress函数
     * \param phModule 要获取函数的模块句柄
     * \param pProcName 要获取的函数的名称
     * \return 要获取的函数在phModule中的地址
     */
-    DWORD GetFunctionAddress( HMODULE phModule, TCHAR* pProcName );
+    EXPORTS_FUNC DWORD GetFunctionAddress( HMODULE phModule, TCHAR* pProcName );
+    
+    /**
+    * \brief 未导出函数NtQueryInformationProcess封装
+    * \param phModule 要获取函数的模块句柄
+    * \param pProcName 要获取的函数的名称
+    * \return 成功返回0，失败返回非0
+    */
+    EXPORTS_FUNC BOOL DTKNtQueryInformationProcess( HANDLE ProcessHandle, UINT InformationClass, PVOID ProcessInformation, ULONG ProcessInformationLength, PULONG ReturnLength );
     
 }

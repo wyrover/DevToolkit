@@ -2,10 +2,13 @@
 #include "DTKKernel.h"
 #include <tlhelp32.h>
 #include "mhook.h"
+
+#ifdef _USRDLL
 #ifdef _DEBUG
 #pragma comment(lib,"mhookLib_d.lib")
 #else
 #pragma comment(lib,"mhookLib.lib")
+#endif
 #endif
 
 namespace DevToolkit
@@ -275,7 +278,7 @@ namespace DevToolkit
         HMODULE instance = NULL;
         if ( !::GetModuleHandleExA( GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
                                     GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
-                                    LPCSTR(address),
+                                    LPCSTR( address ),
                                     &instance ) )
         {
             return NULL;
@@ -324,63 +327,77 @@ namespace DevToolkit
         else
             return NULL;
     }
+    
+    DWORD GetFunctionAddress( HMODULE phModule, TCHAR* pProcName )
+    {
+        if ( !phModule )
+            return        0;
+        PIMAGE_DOS_HEADER pimDH = ( PIMAGE_DOS_HEADER )phModule;
+        PIMAGE_NT_HEADERS pimNH = ( PIMAGE_NT_HEADERS )( ( TCHAR* )phModule + pimDH->e_lfanew );
+        PIMAGE_EXPORT_DIRECTORY pimED = ( PIMAGE_EXPORT_DIRECTORY )( ( DWORD )phModule + pimNH->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress );
+        DWORD pExportSize = pimNH->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size;
+        DWORD pResult = 0;
+        
+        if ( ( DWORD )pProcName < 0x10000 )
+        {
+            if ( ( DWORD )pProcName >= pimED->NumberOfFunctions + pimED->Base || ( DWORD )pProcName < pimED->Base )
+                return 0;
+            pResult = ( DWORD )phModule + ( ( DWORD* )( ( DWORD )phModule + pimED->AddressOfFunctions ) )[( DWORD )pProcName - pimED->Base];
+        }
+        else
+        {
+            DWORD* pAddressOfNames = ( DWORD* )( ( DWORD )phModule + pimED->AddressOfNames );
+            for ( DWORD i = 0; i < pimED->NumberOfNames; i++ )
+            {
+                TCHAR* pExportName = ( TCHAR* )( pAddressOfNames[i] + ( DWORD )phModule );
+                if ( _tcscmp( pProcName, pExportName ) == 0 )
+                {
+                    WORD* pAddressOfNameOrdinals = ( WORD* )( ( DWORD )phModule + pimED->AddressOfNameOrdinals );
+                    pResult = ( DWORD )phModule + ( ( DWORD* )( ( DWORD )phModule + pimED->AddressOfFunctions ) )[pAddressOfNameOrdinals[i]];
+                    break;
+                }
+            }
+        }
+        if ( pResult != 0 && pResult >= ( DWORD )pimED && pResult < ( DWORD )pimED + pExportSize )
+        {
+            TCHAR* pDirectStr = ( TCHAR* )pResult;
+            bool pstrok = false;
+            while ( *pDirectStr )
+            {
+                if ( *pDirectStr == '.' )
+                {
+                    pstrok = TRUE;
+                    break;
+                }
+                pDirectStr++;
+            }
+            if ( !pstrok )
+                return 0;
+            TCHAR pdllname[MAX_PATH];
+            int  pnamelen = pDirectStr - ( TCHAR* )pResult;
+            if ( pnamelen <= 0 )
+                return 0;
+            memcpy( pdllname, ( TCHAR* )pResult, pnamelen );
+            pdllname[pnamelen] = 0;
+            HMODULE phexmodule = GetModuleHandle( pdllname );
+            pResult  = GetFunctionAddress( phexmodule, pDirectStr + 1 );
+        }
+        
+        return pResult;
+    }
+    
+    BOOL DTKNtQueryInformationProcess( HANDLE ProcessHandle, UINT InformationClass, PVOID ProcessInformation, ULONG ProcessInformationLength, PULONG ReturnLength )
+    {
+        NTQUERYINFORMATIONPROCESS DTK_NtQueryInformationProcess;
+        DTK_NtQueryInformationProcess = ( NTQUERYINFORMATIONPROCESS )GetProcAddress(
+			GetModuleHandle( _T( "ntdll.dll" ) ),  "NtQueryInformationProcess" );
+                                            
+        if ( !DTK_NtQueryInformationProcess )
+            return -1;
 
-	DWORD GetFunctionAddress( HMODULE phModule, TCHAR* pProcName )
-	{
-		if ( !phModule )
-			return        0;
-		PIMAGE_DOS_HEADER pimDH = ( PIMAGE_DOS_HEADER )phModule;
-		PIMAGE_NT_HEADERS pimNH = ( PIMAGE_NT_HEADERS )( ( TCHAR* )phModule + pimDH->e_lfanew );
-		PIMAGE_EXPORT_DIRECTORY pimED = ( PIMAGE_EXPORT_DIRECTORY )( ( DWORD )phModule + pimNH->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress );
-		DWORD pExportSize = pimNH->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].Size;
-		DWORD pResult = 0;
-
-		if ( ( DWORD )pProcName < 0x10000 )
-		{
-			if ( ( DWORD )pProcName >= pimED->NumberOfFunctions + pimED->Base || ( DWORD )pProcName < pimED->Base )
-				return 0;
-			pResult = ( DWORD )phModule + ( ( DWORD* )( ( DWORD )phModule + pimED->AddressOfFunctions ) )[( DWORD )pProcName - pimED->Base];
-		}
-		else
-		{
-			DWORD* pAddressOfNames = ( DWORD* )( ( DWORD )phModule + pimED->AddressOfNames );
-			for ( DWORD i = 0; i < pimED->NumberOfNames; i++ )
-			{
-				TCHAR* pExportName = ( TCHAR* )( pAddressOfNames[i] + ( DWORD )phModule );
-				if ( _tcscmp( pProcName, pExportName ) == 0 )
-				{
-					WORD* pAddressOfNameOrdinals = ( WORD* )( ( DWORD )phModule + pimED->AddressOfNameOrdinals );
-					pResult = ( DWORD )phModule + ( ( DWORD* )( ( DWORD )phModule + pimED->AddressOfFunctions ) )[pAddressOfNameOrdinals[i]];
-					break;
-				}
-			}
-		}
-		if ( pResult != 0 && pResult >= ( DWORD )pimED && pResult < ( DWORD )pimED + pExportSize )
-		{
-			TCHAR* pDirectStr = ( TCHAR* )pResult;
-			bool pstrok = false;
-			while ( *pDirectStr )
-			{
-				if ( *pDirectStr == '.' )
-				{
-					pstrok = TRUE;
-					break;
-				}
-				pDirectStr++;
-			}
-			if ( !pstrok )
-				return 0;
-			TCHAR pdllname[MAX_PATH];
-			int  pnamelen = pDirectStr - ( TCHAR* )pResult;
-			if ( pnamelen <= 0 )
-				return 0;
-			memcpy( pdllname, ( TCHAR* )pResult, pnamelen );
-			pdllname[pnamelen] = 0;
-			HMODULE phexmodule = GetModuleHandle( pdllname );
-			pResult  = GetFunctionAddress( phexmodule, pDirectStr + 1 );
-		}
-
-		return pResult;
-	}
-
+        DWORD dwRet = DTK_NtQueryInformationProcess( ProcessHandle, InformationClass, ProcessInformation, ProcessInformationLength, ReturnLength );
+        return ( 0 == dwRet );
+    }
+    
+    
 }
