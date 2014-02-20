@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "DTKKernel.h"
 #include <tlhelp32.h>
-#include "mhook.h"
 
-#ifdef _USRDLL
-#ifdef _DEBUG
-#pragma comment(lib,"mhookLib_d.lib")
-#else
-#pragma comment(lib,"mhookLib.lib")
-#endif
-#endif
+// #ifdef _USRDLL
+// #ifdef _DEBUG
+// #pragma comment(lib,"mhookLib_d.lib")
+// #else
+// #pragma comment(lib,"mhookLib.lib")
+// #endif
+// #endif
 
 namespace DevToolkit
 {
@@ -261,16 +260,6 @@ namespace DevToolkit
         }
         
         return FALSE;
-    }
-    
-    EXPORTS_FUNC BOOL HookAPI( PVOID *ppSystemFunction, PVOID pHookFunction )
-    {
-        return Mhook_SetHook( ppSystemFunction, pHookFunction );
-    }
-    
-    EXPORTS_FUNC BOOL UnHookAPI( PVOID *ppHookedFunction )
-    {
-        return Mhook_Unhook( ppHookedFunction );
     }
     
     HMODULE GetModuleFromAddress( LPCVOID address )

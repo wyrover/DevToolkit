@@ -63,7 +63,10 @@
     <ClInclude Include="include\HttpClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\mhook.h">
+    <ClInclude Include="include\FileMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MemorySearch.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,16 +101,16 @@
     <ClCompile Include="src\FlashControl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\ProcessManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ProcessMgrImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ProcessHelper.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\HttpClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemorySearch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

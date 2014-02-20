@@ -25,9 +25,9 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v110_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Dll|Win32'" Label="Configuration">
@@ -89,11 +89,11 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DEVTOOLKIT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;E:\开源代码\wtl81_12085\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>
       </ModuleDefinitionFile>
@@ -101,7 +101,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>mhookLib_d.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>G:\GitHub\DevToolkit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -114,7 +115,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DEVTOOLKIT_EXPORTS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;E:\开源代码\wtl81_12085\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -141,7 +142,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;DEVTOOLKIT_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;E:\开源代码\wtl81_12085\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -155,7 +156,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalDependencies>mhookLib.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>G:\GitHub\DevToolkit\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -170,7 +172,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;DEVTOOLKIT_EXPORTS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\;E:\3PartLib\wtl\trunk\wtl\include;G:\GitHub\ThridPartLib\C\WTL\include;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\;G:\GitHub\ThridPartLib\C\Detours Express 3.0\include;E:\开源代码\wtl81_12085\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -201,9 +203,10 @@
     <ClInclude Include="include\DTKMiniDump.h" />
     <ClInclude Include="include\DTKRegHelper.h" />
     <ClInclude Include="include\DTKWebBrowser.h" />
+    <ClInclude Include="include\FileMap.h" />
     <ClInclude Include="include\FlashControl.h" />
     <ClInclude Include="include\HttpClient.h" />
-    <ClInclude Include="include\mhook.h" />
+    <ClInclude Include="include\MemorySearch.h" />
     <ClInclude Include="include\ProcessHelper.h" />
     <ClInclude Include="include\ProcessManager.h" />
     <ClInclude Include="include\ProcessMgrImpl.h" />
@@ -232,11 +235,10 @@
     <ClCompile Include="src\DTKMiniDump.cpp" />
     <ClCompile Include="src\DTKRegHelper.cpp" />
     <ClCompile Include="src\DTKWebBrowser.cpp" />
+    <ClCompile Include="src\FileMap.cpp" />
     <ClCompile Include="src\FlashControl.cpp" />
     <ClCompile Include="src\HttpClient.cpp" />
-    <ClCompile Include="src\ProcessHelper.cpp" />
-    <ClCompile Include="src\ProcessManager.cpp" />
-    <ClCompile Include="src\ProcessMgrImpl.cpp" />
+    <ClCompile Include="src\MemorySearch.cpp" />
     <ClCompile Include="src\SharedMemory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -244,6 +246,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Dll|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
