@@ -107,11 +107,13 @@
     <ClCompile Include="src\FileMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="src\MemorySearch.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="asmFunc.asm">
+      <Filter>源文件</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
