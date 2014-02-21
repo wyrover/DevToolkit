@@ -3,21 +3,22 @@
 class CFileVersionInfo
 {
 public:
-	CFileVersionInfo();
-	virtual ~CFileVersionInfo();
+    CFileVersionInfo();
+    virtual ~CFileVersionInfo();
 
-	BOOL QueryVersionInfo(LPCTSTR lpszFileFullPath);
-	LPCTSTR GetDescription()const;
-	LPCTSTR GetFileVersion()const;
-	LPCTSTR GetProductName()const;
-	LPCTSTR GetProductVersion()const;
-	LPCTSTR GetCopyRight()const;
-	LPCTSTR GetSize()const;
-	LPCTSTR GetModifyData()const;
-	LPCTSTR GetLanguage()const;
-	LPCTSTR GetOrignName()const;
+    BOOL QueryVersionInfo(LPCTSTR lpszFileFullPath);
+    CString GetFileDescription()const;
+    CString GetFileVersion()const;
+    CString GetProductName()const;
+    CString GetProductVersion()const;
+    CString GetInternalName()const;
+    CString GetOriginalFilename()const;
+    CString GetCompanyName()const;
+    CString GetLegalCopyright()const;
+    CString GetModifyData()const;
+    BOOL GetFixedInfo(VS_FIXEDFILEINFO* vsffi)const;
 protected:
-	LPCTSTR QueryValue(LPCTSTR lpszValueName)const;
+    CString QueryValue(LPCTSTR lpszValueName)const;
 private:
-	LPVOID m_lpFileVerInfo;
+    LPVOID m_lpFileVerInfo;
 };

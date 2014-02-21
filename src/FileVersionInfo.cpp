@@ -43,83 +43,104 @@ BOOL CFileVersionInfo::QueryVersionInfo(LPCTSTR lpszFileFullPath)
     return TRUE;
 }
 
-LPCTSTR CFileVersionInfo::GetDescription() const
+CString CFileVersionInfo::QueryValue(LPCTSTR lpszValueName) const
+{
+	CString sValueNmae = lpszValueName;
+
+	if(sValueNmae.IsEmpty() || NULL == m_lpFileVerInfo)
+	{
+		return _T("");
+	}
+
+	struct LANGANDCODEPAGE
+	{
+		WORD wLanguage;
+		WORD wCodePage;
+	} *lpTranslate;
+
+	UINT cbTranslate = 0;
+	// Read the list of languages and code pages.
+
+	VerQueryValue(m_lpFileVerInfo, TEXT("\\VarFileInfo\\Translation"), (LPVOID*)&lpTranslate, &cbTranslate);
+
+	for(UINT i = 0; i < (cbTranslate / sizeof(struct LANGANDCODEPAGE)); i++)
+	{
+		CString strBlockName;
+		strBlockName.Format(_T("\\StringFileInfo\\%04x%04x\\%s"), lpTranslate[i].wLanguage,
+			lpTranslate[i].wCodePage, lpszValueName);
+
+		LPVOID lpResult = NULL;
+		UINT uIntResultLen = 0;
+
+		if(::VerQueryValue(m_lpFileVerInfo, strBlockName, &lpResult, &uIntResultLen))
+		{
+			CString sResult;
+			sResult.Format(_T("%s"), lpResult);
+			return sResult;
+		}
+	}
+
+	return _T("");
+}
+
+CString CFileVersionInfo::GetFileDescription() const
 {
     return QueryValue(_T("FileDescription"));
 }
 
-LPCTSTR CFileVersionInfo::GetProductName() const
-{
-    return QueryValue(_T("ProductName"));
-}
-
-LPCTSTR CFileVersionInfo::GetProductVersion() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetCopyRight() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetSize() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetModifyData() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetLanguage() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetOrignName() const
-{
-    return _T("");
-}
-
-LPCTSTR CFileVersionInfo::GetFileVersion() const
+CString CFileVersionInfo::GetFileVersion() const
 {
     return QueryValue(_T("FileVersion"));
 }
 
-LPCTSTR CFileVersionInfo::QueryValue(LPCTSTR lpszValueName) const
+CString CFileVersionInfo::GetProductName() const
 {
-    CString sValueNmae = lpszValueName;
+    return QueryValue(_T("ProductName"));
+}
 
-    if(sValueNmae.IsEmpty() || NULL == m_lpFileVerInfo)
-    {
-        return _T("");
-    }
+CString CFileVersionInfo::GetProductVersion() const
+{
+    return QueryValue(_T("ProductVersion"));
+}
 
-    DWORD* pTransTable = NULL;
-    UINT dwResultLen = 0;
+CString CFileVersionInfo::GetLegalCopyright() const
+{
+    return QueryValue(_T("LegalCopyright"));
+}
 
-    if(!VerQueryValue(m_lpFileVerInfo, _T("\\VarFileInfo\\Translation"), (LPVOID*)&pTransTable, &dwResultLen))
-    {
-        return _T("");
-    }
+CString CFileVersionInfo::GetInternalName() const
+{
+    return QueryValue(_T("InternalName"));
+}
 
-    LONG dwLanguageCharset = MAKELONG(HIWORD(pTransTable[0]), LOWORD(pTransTable[0]));
+CString CFileVersionInfo::GetCompanyName() const
+{
+    return QueryValue(_T("CompanyName"));
+}
 
-    CString strBlockName;
-    strBlockName.Format(_T("//StringFileInfo//%08lx//%s"), dwLanguageCharset, lpszValueName);
+CString CFileVersionInfo::GetOriginalFilename() const
+{
+    return QueryValue(_T("OriginalFilename"));
+}
 
-    LPVOID lpResult = NULL;
-    UINT uIntResultLen = 0;
-
-    if(::VerQueryValue(m_lpFileVerInfo, strBlockName, &lpResult, &uIntResultLen))
-    {
-        CString sResult;
-        sResult.Format(_T("%s"), pTransTable);
-        return sResult;
-    }
-
+CString CFileVersionInfo::GetModifyData() const
+{
+	throw _T("No Impl");
     return _T("");
 }
 
+BOOL CFileVersionInfo::GetFixedInfo(VS_FIXEDFILEINFO* vsffi) const
+{
+    if(m_lpFileVerInfo == NULL)
+        return FALSE;
+
+    if(NULL == vsffi)
+        return FALSE;
+
+    UINT nQuerySize;
+
+    if(::VerQueryValue((void **)m_lpFileVerInfo, _T("\\"), (LPVOID*)&vsffi, &nQuerySize))
+        return TRUE;
+
+    return FALSE;
+}
