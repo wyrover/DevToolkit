@@ -204,6 +204,7 @@
     <ClInclude Include="include\DTKRegHelper.h" />
     <ClInclude Include="include\DTKWebBrowser.h" />
     <ClInclude Include="include\FileMap.h" />
+    <ClInclude Include="include\FileVersionInfo.h" />
     <ClInclude Include="include\FlashControl.h" />
     <ClInclude Include="include\HttpClient.h" />
     <ClInclude Include="include\MemorySearch.h" />
@@ -236,6 +237,7 @@
     <ClCompile Include="src\DTKRegHelper.cpp" />
     <ClCompile Include="src\DTKWebBrowser.cpp" />
     <ClCompile Include="src\FileMap.cpp" />
+    <ClCompile Include="src\FileVersionInfo.cpp" />
     <ClCompile Include="src\FlashControl.cpp" />
     <ClCompile Include="src\HttpClient.cpp" />
     <ClCompile Include="src\SharedMemory.cpp" />
